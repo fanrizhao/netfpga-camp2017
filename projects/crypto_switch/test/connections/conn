@@ -1,12 +1,11 @@
-################################################################################
 #
 # Copyright (c) 2015 University of Cambridge
 # All rights reserved.
 #
-# This software was developed by Stanford University and the University of Cambridge Computer Laboratory
+# This software was developed by Stanford University and the University of Cambridge Computer Laboratory 
 # under National Science Foundation under Grant No. CNS-0855268,
 # the University of Cambridge Computer Laboratory under EPSRC INTERNET Project EP/H040536/1 and
-# by the University of Cambridge Computer Laboratory under DARPA/AFRL contract FA8750-11-C-0249 ("MRC2"),
+# by the University of Cambridge Computer Laboratory under DARPA/AFRL contract FA8750-11-C-0249 ("MRC2"), 
 # as part of the DARPA MRC research programme.
 #
 # @NETFPGA_LICENSE_HEADER_START@
@@ -28,18 +27,8 @@
 # @NETFPGA_LICENSE_HEADER_END@
 #
 
-export SUME_FOLDER=${HOME}/NetFPGA-SUME-live
-export XILINX_PATH=/opt/Xilinx/Vivado/2016.4
-export NF_PROJECT_NAME=crypto_switch
-export PROJECTS=${SUME_FOLDER}/projects
-export CONTRIB_PROJECTS=${SUME_FOLDER}/contrib-projects
-export IP_FOLDER=${SUME_FOLDER}/lib/hw/std/cores
-export CONSTRAINTS=${SUME_FOLDER}/lib/hw/std/constraints
-export XILINX_IP_FOLDER=${SUME_FOLDER}/lib/hw/xilinx/cores
-export NF_DESIGN_DIR=${SUME_FOLDER}/projects/${NF_PROJECT_NAME}
-export NF_WORK_DIR=/tmp/${USER}
-export PYTHONPATH=.:${SUME_FOLDER}/tools/scripts/:${NF_DESIGN_DIR}/lib/Python:${SUME_FOLDER}/tools/scripts/NFTest
-export DRIVER_NAME=sume_riffa_v1_0_0
-export DRIVER_FOLDER=${SUME_FOLDER}/lib/sw/std/driver/${DRIVER_NAME}
-export APPS_FOLDER=${SUME_FOLDER}/lib/sw/std/apps/${DRIVER_NAME}
 
+nf0:eth1
+nf1:eth2
+nf2:
+nf3:

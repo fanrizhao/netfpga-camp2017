@@ -63,7 +63,7 @@ RUN_ARGS := $(wordlist 2,$(words $(MAKECMDGOALS)),$(MAKECMDGOALS))
 $(eval $(RUN_ARGS):;@:)
 
 
-all:	clean sume hwtestlib 
+all:	clean sume hwtestlib driver
 
 clean: libclean toolsclean projectsclean hwtestlibclean swclean
 	@rm -rfv *.*~
@@ -95,18 +95,17 @@ sume:
 	make -C $(LIB_HW_DIR)/std/cores/nf_10ge_attachment_v1_0_0/
 	make -C $(LIB_HW_DIR)/std/cores/nf_10ge_interface_shared_v1_0_0/
 	make -C $(LIB_HW_DIR)/std/cores/nf_10ge_interface_v1_0_0/
-#	make -C $(LIB_HW_DIR)/contrib/cores/nfmac_10ge_interface_shared_v1_0_0/
-#	make -C $(LIB_HW_DIR)/contrib/cores/nfmac_10ge_interface_v1_0_0/
-#	make -C $(LIB_HW_DIR)/contrib/cores/nfmac_10ge_interface_shared_v1_0_0/
-#	make -C $(LIB_HW_DIR)/contrib/cores/nfmac_10ge_interface_v1_0_0/
-#	make -C $(LIB_HW_DIR)/contrib/cores/vlan_adder_v1_0_0/
-#	make -C $(LIB_HW_DIR)/contrib/cores/vlan_remover_v1_00/
-#	make -C $(LIB_HW_DIR)/contrib/cores/nic_output_port_lookup_v4_0_0/
 	@echo "/////////////////////////////////////////";
 	@echo "//\tLibrary cores created.";
 	@echo "/////////////////////////////////////////";
 
-
+driver:
+	cd $(DRIVER_FOLDER); make install; make
+	make -C $(APPS_FOLDER)
+	@echo "//////////////////////////////////////////";
+	@echo "//\t driver installed.";
+	@echo "/////////////////////////////////////////";
+	
 libclean:
 	@rm -rf $(LIB_REPO)
 	@for lib in $(LIB_HW_DIR_INSTANCES) ; do \
