@@ -115,8 +115,8 @@ for j in range(num_normal):
     encrypt_pkta.append(encrypt_pkt(key, pkt))
 
     if isHW():
-        nftest_expect_phy('nf1', encrypt_pkt(key,pkt))
-        nftest_send_phy('nf0', pkt)
+        nftest_expect_phy('nf0', encrypt_pkt(key,pkt))
+        nftest_send_phy('nf1', pkt)
 
 if not isHW():
     nftest_send_phy('nf1', pkta)
