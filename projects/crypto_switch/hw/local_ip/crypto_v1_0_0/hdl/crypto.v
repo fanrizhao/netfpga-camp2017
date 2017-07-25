@@ -109,6 +109,18 @@ module crypto
    //TODO
    // ---------- Local Parameters ---------
    //Add your states here 
+ 
+   localparam PKT_HDR_WORD0       = 1;
+   localparam PKT_HDR_WORD1       = 2;
+   localparam PKT_HDR_WORD2       = 3;
+ //include your variables here
+   reg  [2:0]                       state, next_state;
+   wire [31:0]                      key;
+   wire [255:0]                      keys;
+
+
+   assign key = 32'hFFFFFFFF;
+   assign keys ={key,key,key,key,key,key,key,key};
 
 
    // ------------- Regs/ wires -----------
@@ -149,32 +161,79 @@ module crypto
    // ------------- Logic ------------
 
    assign s_axis_tready = !fifo_nearly_full;
+ 
   //TODO
   /*********************************************************************
   * For every new packet, do nothing if Ethernet or IP header, "encrypt"
   * Any following payload, until end of packet  
   **********************************************************************/
-   always @* begin
+   always @* begin//{
      m_axis_tuser = fifo_out_tuser;
      m_axis_tdata = fifo_out_tdata;
      m_axis_tkeep = fifo_out_tkeep;
      m_axis_tlast = fifo_out_tlast;
      m_axis_tvalid = 0;
-     
      fifo_rd_en = 0;
-   
-     //Add your states and related logic here
+     next_state = state;
 
-end
+	case(state)
+		PKT_HDR_WORD0: begin
+		//your logic goes here
+			m_axis_tvalid = !fifo_empty;
+				
+			if( m_axis_tready  && m_axis_tvalid  ) begin
+				fifo_rd_en = 1;
+				//m_axis_tvalid = 1;
+				next_state = PKT_HDR_WORD1;
+			end
+			else
+				next_state = PKT_HDR_WORD0;
 
-//TODO
-//add synchronous logic here
-   always @(posedge axis_aclk) begin
-     if (~axis_resetn) begin
-     end
-     else begin
-     end
-   end
+		end
+
+		PKT_HDR_WORD1: begin
+		// your logic goes here
+			m_axis_tvalid = !fifo_empty;
+			if( m_axis_tready  && m_axis_tvalid ) begin 
+				m_axis_tdata = { fifo_out_tdata[255:16] ^ keys[255:16],fifo_out_tdata[15:0]};
+				fifo_rd_en= 1;
+				if (fifo_out_tlast == 1)
+					next_state = PKT_HDR_WORD0;
+				else
+					next_state = PKT_HDR_WORD2;
+			end
+			else
+				next_state = PKT_HDR_WORD1;
+		end 
+
+		PKT_HDR_WORD2: begin//{
+			m_axis_tvalid = !fifo_empty;
+			if( m_axis_tready  && m_axis_tvalid ) begin 
+
+			//if( m_axis_tready  && !fifo_empty) begin//{
+				m_axis_tdata = fifo_out_tdata ^ keys;
+				fifo_rd_en=1;
+				if (fifo_out_tlast == 1)
+					next_state = PKT_HDR_WORD0;
+				else
+					next_state = PKT_HDR_WORD2;
+			end//}
+			else
+				next_state = PKT_HDR_WORD2;
+			//any additional states?
+		end//}
+	endcase 
+
+	end//}
+
+	always @(posedge axis_aclk) begin
+		if (~axis_resetn) begin
+			state <= PKT_HDR_WORD0;
+		end
+		else begin
+			state <= next_state;
+		end
+	end
 
 
 
