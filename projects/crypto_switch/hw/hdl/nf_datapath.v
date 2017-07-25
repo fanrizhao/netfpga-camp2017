@@ -227,6 +227,13 @@ module nf_datapath #(
 	// ######################################
 	// Crypto module connectivity
 	// ######################################
+    wire [C_M_AXIS_DATA_WIDTH - 1:0]         m_axis_crypto_tdata;
+    wire [((C_M_AXIS_DATA_WIDTH / 8)) - 1:0] m_axis_crypto_tkeep;
+    wire [C_M_AXIS_TUSER_WIDTH-1:0]          m_axis_crypto_tuser;
+    wire                                     m_axis_crypto_tvalid;
+    wire                                     m_axis_crypto_tready;
+    wire                                     m_axis_crypto_tlast;
+
 
   //Input Arbiter
   input_arbiter_ip 
@@ -336,7 +343,43 @@ module nf_datapath #(
 	// ############################
 	//	crypto_module
 	// ############################
+      crypto_ip 
+     crypto  (
+      .axis_aclk(axis_aclk), // input axi_aclk
+      .axis_resetn(axis_resetn), // input axi_resetn
+      .m_axis_tdata (m_axis_crypto_tdata), // output [255 : 0] m_axis_tdata
+      .m_axis_tkeep (m_axis_crypto_tkeep), // output [31 : 0] m_axis_tkeep
+      .m_axis_tuser (m_axis_crypto_tuser), // output [127 : 0] m_axis_tuser
+      .m_axis_tvalid(m_axis_crypto_tvalid), // output m_axis_tvalid
+      .m_axis_tready(m_axis_crypto_tready), // input m_axis_tready
+      .m_axis_tlast (m_axis_crypto_tlast), // output m_axis_tlast
+      .s_axis_tdata (m_axis_opl_tdata), // input [255 : 0] s_axis_tdata
+      .s_axis_tkeep (m_axis_opl_tkeep), // input [31 : 0] s_axis_tkeep
+      .s_axis_tuser (m_axis_opl_tuser), // input [127 : 0] s_axis_tuser
+      .s_axis_tvalid(m_axis_opl_tvalid), // input s_axis_tvalid
+      .s_axis_tready(m_axis_opl_tready), // output s_axis_tready
+      .s_axis_tlast (m_axis_opl_tlast), // input s_axis_tlast
 
+      .S_AXI_AWADDR(S3_AXI_AWADDR), 
+      .S_AXI_AWVALID(S3_AXI_AWVALID),
+      .S_AXI_WDATA(S3_AXI_WDATA),  
+      .S_AXI_WSTRB(S3_AXI_WSTRB),  
+      .S_AXI_WVALID(S3_AXI_WVALID), 
+      .S_AXI_BREADY(S3_AXI_BREADY), 
+      .S_AXI_ARADDR(S3_AXI_ARADDR), 
+      .S_AXI_ARVALID(S3_AXI_ARVALID),
+      .S_AXI_RREADY(S3_AXI_RREADY), 
+      .S_AXI_ARREADY(S3_AXI_ARREADY),
+      .S_AXI_RDATA(S3_AXI_RDATA),  
+      .S_AXI_RRESP(S3_AXI_RRESP),  
+      .S_AXI_RVALID(S3_AXI_RVALID), 
+      .S_AXI_WREADY(S3_AXI_WREADY), 
+      .S_AXI_BRESP(S3_AXI_BRESP),  
+      .S_AXI_BVALID(S3_AXI_BVALID), 
+      .S_AXI_AWREADY(S3_AXI_AWREADY),
+      .S_AXI_ACLK (axi_aclk), 
+      .S_AXI_ARESETN(axi_resetn)
+    );
 
        //TODO - Add crypto connectivity
        //output_queues   #(
@@ -344,12 +387,12 @@ module nf_datapath #(
        bram_output_queues_1 (
       .axis_aclk(axis_aclk), // input axi_aclk
       .axis_resetn(axis_resetn), // input axi_resetn
-      .s_axis_tdata   (m_axis_opl_tdata), // input [255 : 0] s_axis_tdata
-      .s_axis_tkeep   (m_axis_opl_tkeep), // input [31 : 0] s_axis_tkeep
-      .s_axis_tuser   (m_axis_opl_tuser), // input [127 : 0] s_axis_tuser
-      .s_axis_tvalid  (m_axis_opl_tvalid), // input s_axis_tvalid
-      .s_axis_tready  (m_axis_opl_tready), // output s_axis_tready
-      .s_axis_tlast   (m_axis_opl_tlast), // input s_axis_tlast
+      .s_axis_tdata   (m_axis_crypto_tdata), // input [255 : 0] s_axis_tdata
+      .s_axis_tkeep   (m_axis_crypto_tkeep), // input [31 : 0] s_axis_tkeep
+      .s_axis_tuser   (m_axis_crypto_tuser), // input [127 : 0] s_axis_tuser
+      .s_axis_tvalid  (m_axis_crypto_tvalid), // input s_axis_tvalid
+      .s_axis_tready  (m_axis_crypto_tready), // output s_axis_tready
+      .s_axis_tlast   (m_axis_crypto_tlast), // input s_axis_tlast
       .m_axis_0_tdata (m_axis_0_tdata), // output [255 : 0] m_axis_0_tdata
       .m_axis_0_tkeep (m_axis_0_tkeep), // output [31 : 0] m_axis_0_tkeep
       .m_axis_0_tuser (m_axis_0_tuser), // output [127 : 0] m_axis_0_tuser
