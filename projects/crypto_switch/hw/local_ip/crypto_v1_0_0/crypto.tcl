@@ -52,8 +52,8 @@ puts "Creating Crypto IP"
 #####################################
 
 #TODO
-#read_verilog "./hdl/crypto_cpu_regs_defines.v"
-#read_verilog "./hdl/crypto_cpu_regs.v"
+read_verilog "./hdl/crypto_cpu_regs_defines.v"
+read_verilog "./hdl/crypto_cpu_regs.v"
 read_verilog "./hdl/crypto.v"
 update_compile_order -fileset sources_1
 update_compile_order -fileset sim_1
