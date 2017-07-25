@@ -94,7 +94,10 @@ generate_target all [get_ips output_queues_ip]
 # crypto_switch
 # #####################
 
-
+create_ip -name crypto -vendor NetFPGA -library NetFPGA -module_name crypto_ip
+set_property generate_synth_checkpoint false [get_files crypto_ip.xci ]
+reset_target all [get_ips crypto_ip]
+generate_target all [get_ips crypto_ip]
 
 #Add ID block
 create_ip -name blk_mem_gen -vendor xilinx.com -library ip -version 8.3 -module_name identifier_ip
@@ -191,6 +194,9 @@ set output [exec python $::env(NF_DESIGN_DIR)/test/${test_name}/run.py]
 puts $output
 
 launch_xsim -simset sim_1 -mode behavioral
+add_wave {{/top_tb/top_sim/nf_datapath_0/output_port_lookup_1}}
+add_wave_divider CRYPTO
+add_wave {{/top_tb/top_sim/nf_datapath_0/crypto/inst}} 
 run 300us
 
 

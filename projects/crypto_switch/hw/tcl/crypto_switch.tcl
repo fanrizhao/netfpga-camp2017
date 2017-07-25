@@ -95,6 +95,10 @@ generate_target all [get_ips output_queues_ip]
 # ####################
 # crypto_switch
 # ####################
+create_ip -name crypto -vendor NetFPGA -library NetFPGA -module_name crypto_ip
+set_property generate_synth_checkpoint false [get_files crypto_ip.xci ]
+reset_target all [get_ips crypto_ip]
+generate_target all [get_ips crypto_ip]
 
 #create the IPI Block Diagram
 source ./tcl/control_sub.tcl
