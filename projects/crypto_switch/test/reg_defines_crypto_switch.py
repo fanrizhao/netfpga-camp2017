@@ -1258,3 +1258,62 @@ def SUME_NF_RIFFA_DMA_0_PCIEINTERRUPT2_DEFAULT():
     return 0x0
 def SUME_NF_RIFFA_DMA_0_PCIEINTERRUPT2_WIDTH():
     return 32
+
+# /######################################################
+# /# Definitions for CRYPTO
+# /######################################################
+def SUME_CRYPTO_BASEADDR():
+    return 0x44090000
+def SUME_CRYPTO_HIGHADDR():
+    return 0x44090FFF
+def SUME_CRYPTO_SIZEADDR():
+    return 0x1000
+
+def SUME_CRYPTO_0_ID():
+    return 0x44090000
+def SUME_CRYPTO_0_ID_DEFAULT():
+    return 0x0000DA01
+def SUME_CRYPTO_0_ID_WIDTH():
+    return 32
+def SUME_CRYPTO_0_VERSION():
+    return 0x44090004
+def SUME_CRYPTO_0_VERSION_DEFAULT():
+    return 0x1
+def SUME_CRYPTO_0_VERSION_WIDTH():
+    return 32
+def SUME_CRYPTO_0_RESET():
+    return 0x44090008
+def SUME_CRYPTO_0_RESET_DEFAULT():
+    return 0x0
+def SUME_CRYPTO_0_RESET_WIDTH():
+    return 16
+def SUME_CRYPTO_0_FLIP():
+    return 0x4409000c
+def SUME_CRYPTO_0_FLIP_DEFAULT():
+    return 0x0
+def SUME_CRYPTO_0_FLIP_WIDTH():
+    return 32
+def SUME_CRYPTO_0_DEBUG():
+    return 0x44090010
+def SUME_CRYPTO_0_DEBUG_DEFAULT():
+    return 0x0
+def SUME_CRYPTO_0_DEBUG_WIDTH():
+    return 32
+def SUME_CRYPTO_0_PKTIN():
+    return 0x44090014
+def SUME_CRYPTO_0_PKTIN_DEFAULT():
+    return 0x0
+def SUME_CRYPTO_0_PKTIN_WIDTH():
+    return 32
+def SUME_CRYPTO_0_PKTOUT():
+    return 0x44090018
+def SUME_CRYPTO_0_PKTOUT_DEFAULT():
+    return 0x0
+def SUME_CRYPTO_0_PKTOUT_WIDTH():
+    return 32
+def SUME_CRYPTO_0_KEY():
+    return 0x4409001c
+def SUME_CRYPTO_0_KEY_DEFAULT():
+    return 0xF
+def SUME_CRYPTO_0_KEY_WIDTH():
+    return 32

@@ -73,7 +73,8 @@ num_broadcast = 10
 
 
 # define the key we want to use to encrypt the packet
-key = 0xFFFFFFFF
+#key = 0xFFFFFFFF
+key = 0xf
 
 
 pkts = []

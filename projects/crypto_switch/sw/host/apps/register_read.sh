@@ -390,3 +390,19 @@ echo -n "SUME_NF_RIFFA_DMA_0_PCIEINTERRUPT2_OFFSET: "
 ./rwaxi -a 0x44080068
 
 echo "===> SUME_CRYPTO_BASEADDR (0x44090000)"
+echo -n "SUME_CRYPTO_0_ID_OFFSET: "
+./rwaxi -a 0x44090000
+echo -n "SUME_CRYPTO_0_VERSION_OFFSET: "
+./rwaxi -a 0x44090004
+echo -n "SUME_CRYPTO_0_RESET_OFFSET: "
+./rwaxi -a 0x44090008
+echo -n "SUME_CRYPTO_0_FLIP_OFFSET: "
+./rwaxi -a 0x4409000c
+echo -n "SUME_CRYPTO_0_DEBUG_OFFSET: "
+./rwaxi -a 0x44090010
+echo -n "SUME_CRYPTO_0_PKTIN_OFFSET: "
+./rwaxi -a 0x44090014
+echo -n "SUME_CRYPTO_0_PKTOUT_OFFSET: "
+./rwaxi -a 0x44090018
+echo -n "SUME_CRYPTO_0_KEY_OFFSET: "
+./rwaxi -a 0x4409001c
