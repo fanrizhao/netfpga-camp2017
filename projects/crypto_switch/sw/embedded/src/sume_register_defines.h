@@ -29,49 +29,49 @@
 // This is an automatically generated header definitions file
 /////////////////////////////////////////////////////////////////////////////////
 
-//######################################################
-//# Definitions for MICROBLAZE_AXI_IIC
-//######################################################
+/*******************************************************************
+* Definitions for MICROBLAZE_AXI_IIC
+*******************************************************************/
 #define SUME_MICROBLAZE_AXI_IIC_BASEADDR 0x40800000
 #define SUME_MICROBLAZE_AXI_IIC_HIGHADDR 0x4080FFFF
 #define SUME_MICROBLAZE_AXI_IIC_SIZEADDR 0x10000
 
 
-//######################################################
-//# Definitions for MICROBLAZE_UARTLITE
-//######################################################
+/*******************************************************************
+* Definitions for MICROBLAZE_UARTLITE
+*******************************************************************/
 #define SUME_MICROBLAZE_UARTLITE_BASEADDR 0x40600000
 #define SUME_MICROBLAZE_UARTLITE_HIGHADDR 0x4060FFFF
 #define SUME_MICROBLAZE_UARTLITE_SIZEADDR 0x10000
 
 
-//######################################################
-//# Definitions for MICROBLAZE_DLMB_BRAM
-//######################################################
+/*******************************************************************
+* Definitions for MICROBLAZE_DLMB_BRAM
+*******************************************************************/
 #define SUME_MICROBLAZE_DLMB_BRAM_BASEADDR 0x00000000
 #define SUME_MICROBLAZE_DLMB_BRAM_HIGHADDR 0x0000FFFF
 #define SUME_MICROBLAZE_DLMB_BRAM_SIZEADDR 0x10000
 
 
-//######################################################
-//# Definitions for MICROBLAZE_ILMB_BRAM
-//######################################################
+/*******************************************************************
+* Definitions for MICROBLAZE_ILMB_BRAM
+*******************************************************************/
 #define SUME_MICROBLAZE_ILMB_BRAM_BASEADDR 0x00000000
 #define SUME_MICROBLAZE_ILMB_BRAM_HIGHADDR 0x0000FFFF
 #define SUME_MICROBLAZE_ILMB_BRAM_SIZEADDR 0x10000
 
 
-//######################################################
-//# Definitions for MICROBLAZE_AXI_INTC
-//######################################################
+/*******************************************************************
+* Definitions for MICROBLAZE_AXI_INTC
+*******************************************************************/
 #define SUME_MICROBLAZE_AXI_INTC_BASEADDR 0x41200000
 #define SUME_MICROBLAZE_AXI_INTC_HIGHADDR 0x4120FFFF
 #define SUME_MICROBLAZE_AXI_INTC_SIZEADDR 0x10000
 
 
-//######################################################
-//# Definitions for INPUT_ARBITER
-//######################################################
+/*******************************************************************
+* Definitions for INPUT_ARBITER
+*******************************************************************/
 #define SUME_INPUT_ARBITER_BASEADDR 0x44010000
 #define SUME_INPUT_ARBITER_HIGHADDR 0x44010FFF
 #define SUME_INPUT_ARBITER_SIZEADDR 0x1000
@@ -98,9 +98,9 @@
 #define SUME_INPUT_ARBITER_0_PKTOUT_DEFAULT 0x0
 #define SUME_INPUT_ARBITER_0_PKTOUT_WIDTH 32
 
-//######################################################
-//# Definitions for OUTPUT_QUEUES
-//######################################################
+/*******************************************************************
+* Definitions for OUTPUT_QUEUES
+*******************************************************************/
 #define SUME_OUTPUT_QUEUES_BASEADDR 0x44030000
 #define SUME_OUTPUT_QUEUES_HIGHADDR 0x44030FFF
 #define SUME_OUTPUT_QUEUES_SIZEADDR 0x1000
@@ -232,15 +232,15 @@
 #define SUME_OUTPUT_QUEUES_0_PKTINQUEUEPORT4_DEFAULT 0x0
 #define SUME_OUTPUT_QUEUES_0_PKTINQUEUEPORT4_WIDTH 32
 
-//######################################################
-//# Definitions for OUTPUT_PORT_LOOKUP
-//######################################################
+/*******************************************************************
+* Definitions for OUTPUT_PORT_LOOKUP
+*******************************************************************/
 #define SUME_OUTPUT_PORT_LOOKUP_BASEADDR 0x44020000
 #define SUME_OUTPUT_PORT_LOOKUP_HIGHADDR 0x44020FFF
 #define SUME_OUTPUT_PORT_LOOKUP_SIZEADDR 0x1000
 
 #define SUME_OUTPUT_PORT_LOOKUP_0_ID_OFFSET 0x0
-#define SUME_OUTPUT_PORT_LOOKUP_0_ID_DEFAULT 0x0001DA02
+#define SUME_OUTPUT_PORT_LOOKUP_0_ID_DEFAULT 0x0000DA02
 #define SUME_OUTPUT_PORT_LOOKUP_0_ID_WIDTH 32
 #define SUME_OUTPUT_PORT_LOOKUP_0_VERSION_OFFSET 0x4
 #define SUME_OUTPUT_PORT_LOOKUP_0_VERSION_DEFAULT 0x1
@@ -260,16 +260,10 @@
 #define SUME_OUTPUT_PORT_LOOKUP_0_PKTOUT_OFFSET 0x18
 #define SUME_OUTPUT_PORT_LOOKUP_0_PKTOUT_DEFAULT 0x0
 #define SUME_OUTPUT_PORT_LOOKUP_0_PKTOUT_WIDTH 32
-#define SUME_OUTPUT_PORT_LOOKUP_0_LUTHIT_OFFSET 0x1C
-#define SUME_OUTPUT_PORT_LOOKUP_0_LUTHIT_DEFAULT 0x0
-#define SUME_OUTPUT_PORT_LOOKUP_0_LUTHIT_WIDTH 32
-#define SUME_OUTPUT_PORT_LOOKUP_0_LUTMISS_OFFSET 0x20
-#define SUME_OUTPUT_PORT_LOOKUP_0_LUTMISS_DEFAULT 0x0
-#define SUME_OUTPUT_PORT_LOOKUP_0_LUTMISS_WIDTH 32
 
-//######################################################
-//# Definitions for NF_10G_INTERFACE0
-//######################################################
+/*******************************************************************
+* Definitions for NF_10G_INTERFACE0
+*******************************************************************/
 #define SUME_NF_10G_INTERFACE0_BASEADDR 0x44040000
 #define SUME_NF_10G_INTERFACE0_HIGHADDR 0x44040FFF
 #define SUME_NF_10G_INTERFACE0_SIZEADDR 0x1000
@@ -347,9 +341,9 @@
 #define SUME_NF_10G_INTERFACE_SHARED_0_PCSPMASTATUSVECTOR13_DEFAULT 0x0
 #define SUME_NF_10G_INTERFACE_SHARED_0_PCSPMASTATUSVECTOR13_WIDTH 32
 
-//######################################################
-//# Definitions for NF_10G_INTERFACE1
-//######################################################
+/*******************************************************************
+* Definitions for NF_10G_INTERFACE1
+*******************************************************************/
 #define SUME_NF_10G_INTERFACE1_BASEADDR 0x44050000
 #define SUME_NF_10G_INTERFACE1_HIGHADDR 0x44050FFF
 #define SUME_NF_10G_INTERFACE1_SIZEADDR 0x1000
@@ -427,9 +421,9 @@
 #define SUME_NF_10G_INTERFACE_1_PCSPMASTATUSVECTOR13_DEFAULT 0x0
 #define SUME_NF_10G_INTERFACE_1_PCSPMASTATUSVECTOR13_WIDTH 32
 
-//######################################################
-//# Definitions for NF_10G_INTERFACE2
-//######################################################
+/*******************************************************************
+* Definitions for NF_10G_INTERFACE2
+*******************************************************************/
 #define SUME_NF_10G_INTERFACE2_BASEADDR 0x44060000
 #define SUME_NF_10G_INTERFACE2_HIGHADDR 0x44060FFF
 #define SUME_NF_10G_INTERFACE2_SIZEADDR 0x1000
@@ -507,9 +501,9 @@
 #define SUME_NF_10G_INTERFACE_2_PCSPMASTATUSVECTOR13_DEFAULT 0x0
 #define SUME_NF_10G_INTERFACE_2_PCSPMASTATUSVECTOR13_WIDTH 32
 
-//######################################################
-//# Definitions for NF_10G_INTERFACE3
-//######################################################
+/*******************************************************************
+* Definitions for NF_10G_INTERFACE3
+*******************************************************************/
 #define SUME_NF_10G_INTERFACE3_BASEADDR 0x44070000
 #define SUME_NF_10G_INTERFACE3_HIGHADDR 0x44070FFF
 #define SUME_NF_10G_INTERFACE3_SIZEADDR 0x1000
@@ -587,9 +581,9 @@
 #define SUME_NF_10G_INTERFACE_3_PCSPMASTATUSVECTOR13_DEFAULT 0x0
 #define SUME_NF_10G_INTERFACE_3_PCSPMASTATUSVECTOR13_WIDTH 32
 
-//######################################################
-//# Definitions for NF_RIFFA_DMA
-//######################################################
+/*******************************************************************
+* Definitions for NF_RIFFA_DMA
+*******************************************************************/
 #define SUME_NF_RIFFA_DMA_BASEADDR 0x44080000
 #define SUME_NF_RIFFA_DMA_HIGHADDR 0x44080FFF
 #define SUME_NF_RIFFA_DMA_SIZEADDR 0x1000
@@ -675,36 +669,4 @@
 #define SUME_NF_RIFFA_DMA_0_PCIEINTERRUPT2_OFFSET 0x68
 #define SUME_NF_RIFFA_DMA_0_PCIEINTERRUPT2_DEFAULT 0x0
 #define SUME_NF_RIFFA_DMA_0_PCIEINTERRUPT2_WIDTH 32
-
-//######################################################
-//# Definitions for CRYPTO
-//######################################################
-#define SUME_CRYPTO_BASEADDR 0x44090000
-#define SUME_CRYPTO_HIGHADDR 0x44090FFF
-#define SUME_CRYPTO_SIZEADDR 0x1000
-
-#define SUME_CRYPTO_0_ID_OFFSET 0x0
-#define SUME_CRYPTO_0_ID_DEFAULT 0x0000DA01
-#define SUME_CRYPTO_0_ID_WIDTH 32
-#define SUME_CRYPTO_0_VERSION_OFFSET 0x4
-#define SUME_CRYPTO_0_VERSION_DEFAULT 0x1
-#define SUME_CRYPTO_0_VERSION_WIDTH 32
-#define SUME_CRYPTO_0_RESET_OFFSET 0x8
-#define SUME_CRYPTO_0_RESET_DEFAULT 0x0
-#define SUME_CRYPTO_0_RESET_WIDTH 16
-#define SUME_CRYPTO_0_FLIP_OFFSET 0xC
-#define SUME_CRYPTO_0_FLIP_DEFAULT 0x0
-#define SUME_CRYPTO_0_FLIP_WIDTH 32
-#define SUME_CRYPTO_0_DEBUG_OFFSET 0x10
-#define SUME_CRYPTO_0_DEBUG_DEFAULT 0x0
-#define SUME_CRYPTO_0_DEBUG_WIDTH 32
-#define SUME_CRYPTO_0_PKTIN_OFFSET 0x14
-#define SUME_CRYPTO_0_PKTIN_DEFAULT 0x0
-#define SUME_CRYPTO_0_PKTIN_WIDTH 32
-#define SUME_CRYPTO_0_PKTOUT_OFFSET 0x18
-#define SUME_CRYPTO_0_PKTOUT_DEFAULT 0x0
-#define SUME_CRYPTO_0_PKTOUT_WIDTH 32
-#define SUME_CRYPTO_0_KEY_OFFSET 0x1C
-#define SUME_CRYPTO_0_KEY_DEFAULT 0xF
-#define SUME_CRYPTO_0_KEY_WIDTH 32
 

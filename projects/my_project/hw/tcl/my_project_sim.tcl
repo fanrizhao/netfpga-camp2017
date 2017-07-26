@@ -196,6 +196,8 @@ set output [exec python $::env(NF_DESIGN_DIR)/test/${test_name}/run.py]
 puts $output
 
 launch_xsim -simset sim_1 -mode behavioral
+
+add_wave {{/top_tb/top_sim/nf_datapath_0/my_module/inst}} 
 run 300us
 
 

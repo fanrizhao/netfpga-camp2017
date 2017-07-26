@@ -106,38 +106,15 @@ module my_module
     output                                    S_AXI_AWREADY
 );
 
-   reg      [`REG_ID_BITS]    id_reg;
-   reg      [`REG_VERSION_BITS]    version_reg;
-   wire     [`REG_RESET_BITS]    reset_reg;
-   reg      [`REG_FLIP_BITS]    ip2cpu_flip_reg;
-   wire     [`REG_FLIP_BITS]    cpu2ip_flip_reg;
-   reg      [`REG_PKTIN_BITS]    pktin_reg;
-   wire                             pktin_reg_clear;
-   reg      [`REG_PKTOUT_BITS]    pktout_reg;
-   wire                             pktout_reg_clear;
-   reg      [`REG_DEBUG_BITS]    ip2cpu_debug_reg;
-   wire     [`REG_DEBUG_BITS]    cpu2ip_debug_reg;
-   reg      [`REG_KEY_BITS]    ip2cpu_key_reg;
-   wire     [`REG_KEY_BITS]    cpu2ip_key_reg;
 
-   wire clear_counters;
-   wire reset_registers;
-
-
-   function integer log2;
-      input integer number;
-      begin
-         log2=0;
-         while(2**log2<number) begin
-            log2=log2+1;
-         end
-      end
-   endfunction // log2
 
    // ---------- Local Parameters ---------
-   localparam PKT_HDR_WORD0       = 1;
-   localparam PKT_HDR_WORD1       = 2;
-   localparam PKT_PAYLOAD         = 4; 
+   localparam LISTEN      	= 1;
+   localparam CHECKIP       	= 2;
+   localparam CHECKPRO         	= 3; 
+   localparam DISCARD         	= 4; 
+   localparam FORWARD         	= 5; 
+
 
    // ------------- Regs/ wires -----------
 
@@ -153,8 +130,8 @@ module my_module
 
    reg  [2:0]                       state, next_state;
    wire [31:0]                      key;
-
-   assign key = ip2cpu_key_reg;
+   reg [7:0] src_port;
+   reg [7:0] proto;
 
    // ------------ Modules -------------
 
@@ -179,69 +156,107 @@ module my_module
    // ------------- Logic ------------
 
    assign s_axis_tready = !fifo_nearly_full;
-
   /*********************************************************************
    * Wait until the ethernet header has been decoded and the output
    * port is found, then write the module header and move the packet
    * to the output
    **********************************************************************/
    always @* begin
-     m_axis_tuser = fifo_out_tuser;
-     m_axis_tdata = fifo_out_tdata;
-     m_axis_tkeep = fifo_out_tkeep;
-     m_axis_tlast = fifo_out_tlast;
+     m_axis_tuser = 0;//fifo_out_tuser;
+     m_axis_tdata = 0;//fifo_out_tdata;
+     m_axis_tkeep = 0;//fifo_out_tkeep;
+     m_axis_tlast = 0;//fifo_out_tlast;
      m_axis_tvalid = 0;
-     
+      
      fifo_rd_en = 0;
      
      next_state = state;
+	 src_port = fifo_out_tuser[23:16];
+	 proto = fifo_out_tdata[192:184];
+	case(state)
+		LISTEN: begin//{
+			
+			
+			if (!fifo_empty && src_port == 8'b1 && proto == 8'd1  ) begin//{
+    			m_axis_tvalid = !fifo_empty; 
+    			
+				//if(src_port &  8'h1) begin//{
+				m_axis_tuser = fifo_out_tuser;
+				m_axis_tuser[31:24] = src_port;
+				m_axis_tdata = fifo_out_tdata;
+				m_axis_tkeep = fifo_out_tkeep;
+				m_axis_tlast = fifo_out_tlast;
+				if( m_axis_tvalid && m_axis_tready) begin//{
+					
+					next_state = FORWARD;
+					fifo_rd_en = 1; 
+					end//}
+				else 
+					next_state = LISTEN;
+				
+				end//}
+			else if (!fifo_empty && src_port == 8'b1 && (proto == 8'd6 || proto == 8'd17)  ) begin//{
+    			m_axis_tvalid = !fifo_empty; 
+    			
+				//if(src_port &  8'h1) begin//{
+				m_axis_tuser = fifo_out_tuser;
+				m_axis_tuser[31:24] = 8'd4;
+				m_axis_tdata = fifo_out_tdata;
+				m_axis_tkeep = fifo_out_tkeep;
+				m_axis_tlast = fifo_out_tlast;
+				if( m_axis_tvalid && m_axis_tready) begin//{
+					
+					next_state = FORWARD;
+					fifo_rd_en = 1; 
+					end//}
+				else 
+					next_state = LISTEN;
+				
+				end//}
+		    else if (!fifo_empty && src_port != 8'b1 )
+		   		next_state = DISCARD;
+		   	else 	
+		   	    next_state = LISTEN;
+			end//}
 
-     case(state)
-       PKT_HDR_WORD0: begin
-         m_axis_tvalid = !fifo_empty;         
+		FORWARD: begin
+		    m_axis_tvalid = !fifo_empty; 
+		    m_axis_tuser = fifo_out_tuser;
+			m_axis_tdata = fifo_out_tdata;
+			m_axis_tkeep = fifo_out_tkeep;
+			m_axis_tlast = fifo_out_tlast;
+			if (m_axis_tvalid && m_axis_tready) begin
+				fifo_rd_en = 1;
+				
+				if (fifo_out_tlast) 
+					next_state = LISTEN;
+				else 
+					next_state = FORWARD;
+			end
+			else
+				next_state = FORWARD;
 
-         if (m_axis_tvalid && m_axis_tready) begin
-           fifo_rd_en = 1;
-           next_state = PKT_HDR_WORD1;
-         end
-       end
+			
+		end 
 
-       PKT_HDR_WORD1: begin
-         m_axis_tvalid = !fifo_empty; 
-
-         if (m_axis_tvalid && m_axis_tready) begin
-           fifo_rd_en = 1;
-     //      m_axis_tdata[255:240] = fifo_out_tdata[255:240];
-     //      m_axis_tdata[239:0]=(fifo_out_tdata[239:0] ^ {key[15:0], {7{key}}});
-             m_axis_tdata[255:16] =(fifo_out_tdata[255:16] ^ { {7{key}},key[31:16]});
-             m_axis_tdata[15:0]=fifo_out_tdata[15:0] ;
-           if (fifo_out_tlast) begin
-             next_state = PKT_HDR_WORD0;
-	   end
-	   else begin					 
-	     next_state = PKT_PAYLOAD;
-	   end	  
-         end
-       end 
-
-       PKT_PAYLOAD: begin
-         m_axis_tvalid = !fifo_empty; 
-
-         if (m_axis_tvalid && m_axis_tready) begin
-           fifo_rd_en = 1;
-           m_axis_tdata = (fifo_out_tdata ^ {8{key}});
-           
-	   if (fifo_out_tlast) begin
-             next_state = PKT_HDR_WORD0;
-	   end
-         end 
-       end
-     endcase 
+		DISCARD: begin
+			if (!fifo_empty) begin
+				fifo_rd_en = 1;
+				m_axis_tvalid = 0; 
+				if (fifo_out_tlast) 
+					next_state = LISTEN;
+				else
+					next_state = DISCARD;
+			end 
+			else
+				next_state = DISCARD;
+		end
+	endcase 
    end
 
    always @(posedge axis_aclk) begin
      if (~axis_resetn) begin
-       state <= PKT_HDR_WORD0;
+       state <= LISTEN;
      end
      else begin
        state <= next_state;

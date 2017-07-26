@@ -30,7 +30,7 @@
 
 export SUME_FOLDER=${HOME}/NetFPGA-SUME-live
 export XILINX_PATH=/opt/Xilinx/Vivado/2016.4
-export NF_PROJECT_NAME=crypto_switch
+export NF_PROJECT_NAME=my_project
 export PROJECTS=${SUME_FOLDER}/projects
 export CONTRIB_PROJECTS=${SUME_FOLDER}/contrib-projects
 export IP_FOLDER=${SUME_FOLDER}/lib/hw/std/cores
