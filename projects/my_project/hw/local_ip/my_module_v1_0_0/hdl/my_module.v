@@ -172,7 +172,7 @@ module my_module
      
      next_state = state;
 	 src_port = fifo_out_tuser[23:16];
-	 proto = fifo_out_tdata[192:184];
+	 proto = fifo_out_tdata[191:184];
 	case(state)
 		LISTEN: begin//{
 			

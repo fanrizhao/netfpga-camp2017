@@ -33,5 +33,5 @@
 #nf2:
 #nf3:
 
-nf0:eth1
+nf0:eth1 
 nf1:eth2
